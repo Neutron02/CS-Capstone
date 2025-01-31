@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Sidebar() {
+const Sidebar = () => {
   return (
-    <div className="w-1/4 bg-gray-100 p-4 border-r border-gray-300 h-screen flex flex-col">
+    <div className="w-1/4 bg-gray-100 p-4 border-r border-gray-300 h-screen flex flex-col" data-testid="sidebar">
       <div className="mb-6 text-center">
         <h3 className="text-lg font-semibold">Current User</h3>
         <div className="w-16 h-16 rounded-full bg-gray-400 mx-auto mt-2"></div>
