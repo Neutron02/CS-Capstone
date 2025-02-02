@@ -20,11 +20,13 @@ test('renders MarketplaceGrid with multiple MarketplaceCards', () => {
   const cards = screen.getAllByTestId('marketplace-card');
   expect(cards.length).toBe(marketplaceItems.length); // Check total number of items
 
-  mockMarketplaceData.forEach((item) => {
-    expect(screen.getByText(item.title)).toBeInTheDocument(); // Check title
-    expect(screen.getByText(`Sold by: ${item.user}`)).toBeInTheDocument(); // Check user
-    expect(screen.getByText(`Rating: ${item.rating} ⭐`)).toBeInTheDocument(); // Check rating
-    expect(screen.getByText(item.description)).toBeInTheDocument(); // Check description
-    expect(screen.getByText(`Price: $${item.price}`)).toBeInTheDocument(); // Check price
+  marketplaceItems.forEach((item, index) => {
+    const card = cards[index];
+    const cardScope = within(card);
+    expect(cardScope.getByText(item.title)).toBeInTheDocument(); // Check title
+    expect(cardScope.getByText(`Sold by: ${item.user}`)).toBeInTheDocument(); // Check user
+    expect(cardScope.getByText(`Rating: ${item.rating} ⭐`)).toBeInTheDocument(); // Check rating
+    expect(cardScope.getByText(item.description)).toBeInTheDocument(); // Check description
+    expect(cardScope.getByText(`Price: $${item.price}`)).toBeInTheDocument(); // Check price
    });
 });
