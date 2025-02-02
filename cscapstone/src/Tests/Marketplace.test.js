@@ -24,5 +24,7 @@ test('renders MarketplaceGrid with multiple MarketplaceCards', () => {
     expect(screen.getByText(item.title)).toBeInTheDocument(); // Check title
     expect(screen.getByText(`Sold by: ${item.user}`)).toBeInTheDocument(); // Check user
     expect(screen.getByText(`Rating: ${item.rating} ⭐`)).toBeInTheDocument(); // Check rating
+    expect(screen.getByText(item.description)).toBeInTheDocument(); // Check description
+    expect(screen.getByText(`Price: $${item.price}`)).toBeInTheDocument(); // Check price
    });
 });
