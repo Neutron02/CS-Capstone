@@ -87,6 +87,6 @@ const UserView = () => {
       </div>
     </div>
   );
-};
+}
 
 export default UserView;

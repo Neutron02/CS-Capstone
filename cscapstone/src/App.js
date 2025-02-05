@@ -6,7 +6,7 @@ import UserView from './Components/UserView';
 
 const App = () => {
   return (
-    <div className="App" style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
+    <div className="App" style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
       <Sidebar />
       <Routes>
         {/* Redirect root to /marketplace */}
@@ -16,6 +16,6 @@ const App = () => {
       </Routes>
     </div>
   );
-};
+}
 
 export default App;
