@@ -1,7 +1,7 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import MarketplaceCard from "./MarketplaceCard";
-import mockMarketplaceData from "../data/MarketplaceData";
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import MarketplaceCard from './MarketplaceCard';
+import mockMarketplaceData from '../data/MarketplaceData';
 
 // Task is to display a user's specific marketplace view 
 const UserView = () => {

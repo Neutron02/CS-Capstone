@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import mockMarketplaceData from "../data/MarketplaceData";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import mockMarketplaceData from '../data/MarketplaceData';
 
 
 // Task is to implement user selection and navigation through the sidebar

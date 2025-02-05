@@ -1,8 +1,8 @@
-import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Sidebar from "./Components/Sidebar";
-import MarketplaceGrid from "./Components/MarketplaceGrid";
-import UserView from "./Components/UserView";
+import './App.css';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Sidebar from './Components/Sidebar';
+import MarketplaceGrid from './Components/MarketplaceGrid';
+import UserView from './Components/UserView';
 
 const App = () => {
   return (
