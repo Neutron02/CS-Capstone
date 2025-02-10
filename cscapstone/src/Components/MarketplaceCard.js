@@ -1,12 +1,11 @@
 import React from 'react';
 
-// Task is addition of required parameters for each card
-const MarketplaceCard = ({ index, user, title, description, rating, price, want }) => {
+const MarketplaceCard = ({ index, user, title, description, rating, price, want, onOffer }) => {
   return (
     <div
       key={index}
       data-testid="marketplace-card"
-      className="bg-white border border-gray-200 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+      className="bg-white border border-gray-200 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between"
     >
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
@@ -31,13 +30,20 @@ const MarketplaceCard = ({ index, user, title, description, rating, price, want 
       {/* Footer */}
       <div className="flex items-center justify-between text-sm text-gray-500">
         <span>
-          Sold by: <span className="text-gray-700 font-medium" data-testid="">{user}</span>
+          Sold by: <span className="text-gray-700 font-medium" data-testid="user">{user}</span>
         </span>
         <span>{rating} ⭐</span>
       </div>
+
+      {/* Offer Button */}
+      <button
+        onClick={onOffer}
+        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+      >
+        Offer
+      </button>
     </div>
   );
 };
 
 export default MarketplaceCard;
-

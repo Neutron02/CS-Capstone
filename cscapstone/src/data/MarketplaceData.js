@@ -1,3 +1,4 @@
+// src/data/MarketplaceData.js
 const mockMarketplaceData = [
   {
     user: "0001",
@@ -54,6 +55,5 @@ const mockMarketplaceData = [
     ]
   }
 ];
-  
+
 export default mockMarketplaceData;
-  

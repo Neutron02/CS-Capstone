@@ -11,12 +11,12 @@ test('renders MarketplaceGrid with multiple MarketplaceCards', () => {
     [...user.want.map(item => ({ ...item, user: user.user, rating: user.rating, isWant: true })),
      ...user.have.map(item => ({ ...item, user: user.user, rating: user.rating, isWant: false }))]
   );
-  // Render MarketplaceGrid with mock data
+  // mp grid rendder
   render(
     <MarketplaceGrid />
   );
 
-  // Ensure the correct number of MarketplaceCards exist
+  // correct number of cards
   const cards = screen.getAllByTestId('marketplace-card');
   expect(cards.length).toBe(marketplaceItems.length); // Check total number of items
 
@@ -27,11 +27,11 @@ test('renders MarketplaceGrid with multiple MarketplaceCards', () => {
     const titleElement = cardScope.getByTestId('title');
     expect(titleElement).toHaveTextContent(item.title);
 
-    // Description
+    // desc
     const descriptionElement = cardScope.getByTestId('description');
     expect(descriptionElement).toHaveTextContent(item.description);
 
-    // Price
+    // price
     const priceElement = cardScope.getByTestId('price');
     expect(priceElement).toHaveTextContent(`$${item.price}`);
 
@@ -47,12 +47,9 @@ test('renders MarketplaceGrid with multiple MarketplaceCards', () => {
     }
 
     // Rating
-    // In your component, rating is shown in text form, e.g. "3 ⭐"
     expect(card).toHaveTextContent(`${item.rating} ⭐`);
 
     // User
-    // The card shows "Sold by: <user>", so check for that text
     expect(card).toHaveTextContent(`Sold by: ${item.user}`);
-
    });
 });
