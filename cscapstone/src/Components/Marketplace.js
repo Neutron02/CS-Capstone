@@ -1,7 +1,7 @@
 import React from 'react';
 import MarketplaceGrid from './MarketplaceGrid';
 
-// Task is adjusting marketplace grid for mock presentation
+// Component is deprecated and used only for testing by rendering the marketplace grid
 
 const Marketplace = () => {
   return (
