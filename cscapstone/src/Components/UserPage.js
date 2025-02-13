@@ -20,7 +20,17 @@ const UserPage = () => {
   // handler for the Offer button on each marketplace card.
   const handleOffer = (item) => {
     alert(`Offer from User ${currentUser.user} on ${item.title}`);
+
     // this should send a post request to /api/offer
+    fetch("/api/offer", {
+      method: "POST",
+      body: JSON.stringify({
+        user: currentUser.user,
+        rating: currentUser.rating
+      }),
+    })
+    .then((response) => response.json())
+    .then((json) => console.log(json));
   };
 
   return (
