@@ -24,13 +24,17 @@ const UserPage = () => {
     // this should send a post request to /api/offer
     fetch("/api/offer", {
       method: "POST",
+      header: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
-        user: currentUser.user,
-        rating: currentUser.rating
+        fromUser: currentUser.user,
+        fromRating: currentUser.rating,
+        toUser: item.user,
+        toRating: item.rating,
+        item: item.title
       }),
-    })
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+    });
   };
 
   return (
