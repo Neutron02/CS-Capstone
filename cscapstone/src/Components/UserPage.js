@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import mockMarketplaceData from '../data/MarketplaceData';
 import Sidebar from './Sidebar';
+import Navbar from './Navbar';
 import MarketplaceGrid from './MarketplaceGrid';
 
 const UserPage = () => {
@@ -31,6 +32,7 @@ const UserPage = () => {
         onUserSelect={handleUserSelect} 
       />
       <MarketplaceGrid onOffer={handleOffer} />
+      <Navbar />
     </div>
   );
 };
