@@ -2,6 +2,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import UserPage from './Components/UserPage';
+import Navbar from './Components/Navbar';
 import mockMarketplaceData from './data/MarketplaceData';
 
 const App = () => {
@@ -9,10 +10,13 @@ const App = () => {
   const defaultUserId = mockMarketplaceData[0].user;
 
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to={`/${defaultUserId}`} replace />} />
-      <Route path="/:userId" element={<UserPage />} />
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Navigate to={`/${defaultUserId}`} replace />} />
+        <Route path="/:userId" element={<UserPage />} />
+      </Routes>
+    </>
   );
 };
 
