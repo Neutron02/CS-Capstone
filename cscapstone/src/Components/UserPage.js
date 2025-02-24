@@ -24,7 +24,7 @@ const UserPage = () => {
     // this should send a post request to /api/offer
     fetch("/api/offer", {
       method: "POST",
-      header: {
+      headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

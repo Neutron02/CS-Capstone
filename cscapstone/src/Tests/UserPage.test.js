@@ -1,12 +1,18 @@
-import React from 'react';
-import { render, screen, within, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import App from '../App';
-import '@testing-library/jest-dom';
+import React from "react";
+import {
+  render,
+  screen,
+  within,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import App from "../App";
+import "@testing-library/jest-dom";
 
-test('Page changes based on user selection in the dropdown', async () => {
+test("Page changes based on user selection in the dropdown", async () => {
   render(
-    <MemoryRouter initialEntries={['/0001']}>
+    <MemoryRouter initialEntries={["/0001"]}>
       <App />
     </MemoryRouter>
   );
@@ -15,22 +21,22 @@ test('Page changes based on user selection in the dropdown', async () => {
   expect(screen.getByText(/Current User: 0001/i)).toBeInTheDocument();
 
   // selection
-  const dropdown = screen.getByRole('combobox');
+  const dropdown = screen.getByRole("combobox");
 
-  const users = ['0001', '0002', '0003', '0004', '0005']
+  const users = ["0001", "0002", "0003", "0004", "0005"];
 
-  users.forEach(user => {
+  users.forEach((user) => {
     fireEvent.change(dropdown, { target: { value: user } });
 
     waitFor(() => {
-        expect(screen.getByText(/Current User: 0002/i)).toBeInTheDocument();
-      });
+      expect(screen.getByText(/Current User: 0002/i)).toBeInTheDocument();
+    });
   });
 });
 
-test('Test That Offer Button Sends a Post Request to api/offer', async () => {
+test("Test That Offer Button Sends a Post Request to api/offer", async () => {
   render(
-    <MemoryRouter initialEntries={['/0001']}>
+    <MemoryRouter initialEntries={["/0001"]}>
       <App />
     </MemoryRouter>
   );
@@ -50,33 +56,28 @@ test('Test That Offer Button Sends a Post Request to api/offer', async () => {
   global.alert = jest.fn();
 
   // loop through all the offer buttons
-  offerButtons.forEach(offerButton => {
-
-    // start at the first offer button and traverse the list
-    const card = offerButton.closest('[data-testid=marketplace-card]');
+  offerButtons.forEach((offerButton) => {
+    const card = offerButton.closest("[data-testid=marketplace-card]");
 
     // find user, rating, title
-    const user2 = card.querySelector('[data-testid=user]');
-    const rating2 = card.querySelector('[data-testid=rating]');
-    const title = card.querySelector('[data-testid=title]');
+    const user2 = card.querySelector("[data-testid=user]");
+    const rating2 = card.querySelector("[data-testid=rating]");
+    const title = card.querySelector("[data-testid=title]");
 
     // click on every offer button
     fireEvent.click(offerButton);
-    expect(fetch).toHaveBeenCalledWith('/api/offer', {
-      // method, header, body
+    expect(fetch).toHaveBeenCalledWith("/api/offer", {
       method: "POST",
-
-      header: {
-        'Content-Type': 'application/json'
+      headers: {
+        "Content-Type": "application/json",
       },
-
       body: JSON.stringify({
         fromUser: user,
         fromRating: rating,
         toUser: user2.textContent,
-        toRating: Number(rating2.textContent.split(" ")[0]),
-        item: title.textContent
-      })
+        toRating: parseInt(rating2.textContent),
+        item: title.textContent,
+      }),
     });
   });
 });
