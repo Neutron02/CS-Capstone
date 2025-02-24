@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, within, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../App';
 import '@testing-library/jest-dom';
@@ -41,6 +41,14 @@ test('Test That Offer Button Sends a Post Request to api/offer', async () => {
   // get all the offer buttons
   const offerButtons = screen.getAllByText(/Offer/i);
 
+  // user, rating
+  const user = "0001";
+  const rating = 5;
+
+  // mock functions
+  global.fetch = jest.fn();
+  global.alert = jest.fn();
+
   // loop through all the offer buttons
   offerButtons.forEach(offerButton => {
 
@@ -48,13 +56,13 @@ test('Test That Offer Button Sends a Post Request to api/offer', async () => {
     const card = offerButton.closest('[data-testid=marketplace-card]');
 
     // find user, rating, title
-    const user = card.querySelector('[data-testid=fromUser]');
-    const rating = card.querySelector('[data-testid=fromRating]');
-    const title = card.querySelector('[data-testid=item]');
+    const user2 = card.querySelector('[data-testid=user]');
+    const rating2 = card.querySelector('[data-testid=rating]');
+    const title = card.querySelector('[data-testid=title]');
 
     // click on every offer button
     fireEvent.click(offerButton);
-    expect(fetch).toHaveBeenCalledWith('api/offer', {
+    expect(fetch).toHaveBeenCalledWith('/api/offer', {
       // method, header, body
       method: "POST",
 
@@ -63,9 +71,11 @@ test('Test That Offer Button Sends a Post Request to api/offer', async () => {
       },
 
       body: JSON.stringify({
-        fromUser: expect(user),
-        fromRating: expect(rating),
-        item: expect(title)
+        fromUser: user,
+        fromRating: rating,
+        toUser: user2.textContent,
+        toRating: Number(rating2.textContent.split(" ")[0]),
+        item: title.textContent
       })
     });
   });
