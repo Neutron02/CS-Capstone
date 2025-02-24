@@ -32,7 +32,7 @@ const MarketplaceCard = ({ index, user, title, description, rating, price, want,
         <span>
           Sold by: <span className="text-gray-700 font-medium" data-testid="user">{user}</span>
         </span>
-        <span>{rating} ⭐</span>
+        <span data-testid="rating">{rating} ⭐</span>
       </div>
 
       {/* Offer Button */}
