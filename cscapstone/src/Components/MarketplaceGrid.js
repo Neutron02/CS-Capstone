@@ -1,9 +1,8 @@
 import React from 'react';
 import MarketplaceCard from './MarketplaceCard';
-import mockMarketplaceData from '../data/MarketplaceData.js';
 
-const MarketplaceGrid = ({ onOffer }) => {
-  const marketplaceItems = mockMarketplaceData.flatMap(user =>
+const MarketplaceGrid = ({ users, onOffer }) => {
+  const marketplaceItems = users.flatMap(user =>
     [
       ...user.want.map(item => ({ ...item, user: user.user, rating: user.rating, isWant: true })),
       ...user.have.map(item => ({ ...item, user: user.user, rating: user.rating, isWant: false }))
