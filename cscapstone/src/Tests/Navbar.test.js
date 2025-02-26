@@ -1,10 +1,15 @@
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 
 describe('Navbar with Form Integration', () => {
-  test('renders Navbar and opens "New Request" form on click', () => {
-    render(<Navbar />);
+  test('opens "New Request" form on click', () => {
+    render(
+      <MemoryRouter>
+        <Navbar />
+      </MemoryRouter>
+    );
 
     // Check if Navbar rendered
     expect(screen.getByText('We Find It')).toBeInTheDocument();
@@ -17,7 +22,11 @@ describe('Navbar with Form Integration', () => {
   });
 
   test('opens "New Offer" form on click', () => {
-    render(<Navbar />);
+    render(
+      <MemoryRouter>
+        <Navbar />
+      </MemoryRouter>
+    );
 
     // Click "OFFER"
     fireEvent.click(screen.getByText('OFFER'));
