@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <div data-testid="navbar">
-      <nav className="fixed top-0 w-full bg-white shadow-md z-10">
+      <nav className="top-0 w-full bg-white shadow-md z-10">
         <div className="container mx-auto py-3 flex justify-between items-center">
           <div className="text-2xl font-bold text-blue-600">
             <Link to="/" onClick={handleClose}>
