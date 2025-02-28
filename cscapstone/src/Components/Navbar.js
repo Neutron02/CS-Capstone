@@ -8,7 +8,7 @@ const Navbar = () => {
   const handleClose = () => {
     setFormType(null);
   };
-  
+
   return (
     <div data-testid="navbar">
       <nav className="fixed top-0 w-full bg-white shadow-md z-10">

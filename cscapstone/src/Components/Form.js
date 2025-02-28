@@ -6,7 +6,7 @@ const Form = ({ type, onClose }) => {
     title: "",
     description: "",
     price: "",
-  })
+  });
 
   // Handles input changes in the form
   const handleChange = (event) => {
