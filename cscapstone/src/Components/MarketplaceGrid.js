@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MarketplaceCard from './MarketplaceCard';
-import mockMarketplaceData from '../data/MarketplaceData.js';
 
 const MarketplaceGrid = ({ onOffer }) => {
-  const marketplaceItems = mockMarketplaceData.flatMap(user =>
-    [
-      ...user.want.map(item => ({ ...item, user: user.user, rating: user.rating, isWant: true })),
-      ...user.have.map(item => ({ ...item, user: user.user, rating: user.rating, isWant: false }))
-    ]
-  );
+  const [marketplaceItems, setMarketplaceItems] = useState([]);
+
+  useEffect(() => {
+    const fetchMarketplaceItems = async () => {
+      try {
+        const response = await fetch('/api/marketplace-items');
+        const data = await response.json();
+        setMarketplaceItems(data);
+      } catch (error) {
+        console.error('Error fetching marketplace items:', error);
+      }
+    };
+
+    fetchMarketplaceItems();
+  }, []);
 
   return (
     <div
@@ -19,7 +27,7 @@ const MarketplaceGrid = ({ onOffer }) => {
         <MarketplaceCard 
           key={index}
           index={index}
-          user={item.user}
+          user={item.user_id}
           title={item.title}
           description={item.description}
           rating={item.rating}

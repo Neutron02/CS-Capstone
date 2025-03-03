@@ -1,47 +1,85 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import mockMarketplaceData from '../data/MarketplaceData';
 import Sidebar from './Sidebar';
 import MarketplaceGrid from './MarketplaceGrid';
 
 const UserPage = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [users, setUsers] = useState([]);
 
-  // find the current user from the data; if not found, use the first user.
-  const currentUser = mockMarketplaceData.find((user) => user.user === userId) || mockMarketplaceData[0];
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('/api/users');
+        const data = await response.json();
+        setUsers(data);
+        console.log('Fetched users:', data);
+        const user = data.find((user) => user.user_id === Number(userId)) || data[0];
+        setCurrentUser(user);
+        console.log('Initial currentUser:', user);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
 
-  // when a user is selected from the dropdown, navigate to that user's route.
+    fetchUsers();
+  }, [userId]);
+
+  useEffect(() => {
+    if (users.length > 0) {
+      const user = users.find((user) => user.user_id === Number(userId)) || users[0];
+      setCurrentUser(user);
+      console.log('Updated currentUser:', user);
+    }
+  }, [userId, users]);
+
   const handleUserSelect = (event) => {
     const selectedUserId = event.target.value;
+    console.log('Selected userId:', selectedUserId);
     navigate(`/${selectedUserId}`);
   };
 
-  // handler for the Offer button on each marketplace card.
-  const handleOffer = (item) => {
-    alert(`Offer from User ${currentUser.user} on ${item.title}`);
+  const handleOffer = async (item) => {
+    try {
+      const offerData = {
+        fromUserId: currentUser.user_id,
+        toUserId: item.user_id,
+        itemId: item.item_id
+      };
 
-    // this should send a post request to /api/offer
-    fetch("/api/offer", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        fromUser: currentUser.user,
-        fromRating: currentUser.rating,
-        toUser: item.user,
-        toRating: item.rating,
-        item: item.title
-      }),
-    });
+      console.log('Sending offer data:', offerData);
+
+      const response = await fetch('/api/offer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(offerData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('Received response data:', data);
+      alert(`Offer from User ${data.fromUser.user_id} on ${data.item.title} to User ${data.toUser.user_id}`);
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
+
+  if (!currentUser) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="App" style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
       <Sidebar 
         currentUser={currentUser} 
-        users={mockMarketplaceData} 
+        users={users} 
         onUserSelect={handleUserSelect} 
       />
       <MarketplaceGrid onOffer={handleOffer} />

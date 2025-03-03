@@ -8,17 +8,17 @@ const Sidebar = ({ currentUser, users, onUserSelect }) => {
       data-testid="sidebar"
     >
       <div className="mb-6 text-center">
-        <h3 className="text-lg font-semibold">Current User: {currentUser.user}</h3>
+        <h3 className="text-lg font-semibold">Current User: {currentUser.user_id}</h3>
         <div className="w-16 h-16 rounded-full bg-gray-400 mx-auto mt-2"></div>
         <div className="mt-4">
           <select 
-            value={currentUser.user} 
+            value={currentUser.user_id} 
             onChange={onUserSelect}
             className="p-2 border border-gray-300 rounded"
           >
             {users.map((user) => (
-              <option key={user.user} value={user.user}>
-                {user.user} (Rating: {user.rating})
+              <option key={user.user_id} value={user.user_id}>
+                User {user.user_id} (Rating: {user.rating})
               </option>
             ))}
           </select>
