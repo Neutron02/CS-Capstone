@@ -12,3 +12,15 @@ CREATE TABLE items (
   user_id INT,
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+CREATE TABLE user_scores (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    role ENUM('buyer', 'seller') NOT NULL,
+    SR FLOAT,
+    DR FLOAT,
+    TV FLOAT,
+    CA FLOAT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    UNIQUE (user_id, role)
+);

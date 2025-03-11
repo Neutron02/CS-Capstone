@@ -22,3 +22,9 @@ INSERT INTO items (title, description, price, isWant, user_id) VALUES
 ('Wireless Earbuds', 'Noise-canceling Bluetooth earbuds', 180.00, TRUE, '0005'),
 ('Fitness Tracker', 'Basic step counter and heart rate monitor', 100.00, FALSE, '0005'),
 ('Old Phone', 'Functional smartphone with minor scratches', 200.00, FALSE, '0005');
+
+INSERT INTO user_scores (user_id, role, SR, DR, TV, CA) VALUES
+('0001', buyer, .32, .53, .33, .12),
+('0001', seller, .42, .83, .13, .22),
+('0002', buyer, .02, .93, .53, .42),
+('0002', seller, .56, .33, .24, .66);
