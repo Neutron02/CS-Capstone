@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MarketplaceCard from './MarketplaceCard';
 
-const MarketplaceGrid = ({ onOffer }) => {
+const MarketplaceGrid = ({ onOffer, refreshCounter }) => {
   const [marketplaceItems, setMarketplaceItems] = useState([]);
 
   useEffect(() => {
@@ -16,11 +16,11 @@ const MarketplaceGrid = ({ onOffer }) => {
     };
 
     fetchMarketplaceItems();
-  }, []);
+  }, [refreshCounter]); // Re-run the fetch when refreshCounter changes
 
   return (
     <div
-      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-start w-full ml-6 mr-6 mt-6 mb-6"
+      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-start w-full mr-6 mt-6 mb-6"
       data-testid="marketplace-grid"
     >
       {marketplaceItems.map((item, index) => (
