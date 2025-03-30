@@ -1,4 +1,3 @@
-//// filepath: /home/smscott/CS-Capstone/cscapstone/src/Components/Navbar.js
 import React from 'react';
 
 const Navbar = ({
