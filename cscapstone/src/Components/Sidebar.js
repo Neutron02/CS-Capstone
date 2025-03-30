@@ -3,7 +3,7 @@ import React from 'react';
 const Sidebar = ({ currentUser, users, onUserSelect }) => {
   return (
     <div
-      className="w-1/4 bg-gray-100 p-4 border-r border-gray-300 h-screen flex flex-col fixed"
+      className="w-full bg-gray-100 p-4 border-r border-gray-300 h-screen flex flex-col"
       style={{ zIndex: 10 }}
       data-testid="sidebar"
     >

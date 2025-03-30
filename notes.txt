@@ -1,0 +1,8 @@
+sudo apt install mysql-server
+sudo systemctl enable mysql
+sudo service mysql start
+
+create database
+CREATE `market-db`
+sudo mysql -u root market-db < schema.sql
+sudo mysql -u root market-db < seed.sql
