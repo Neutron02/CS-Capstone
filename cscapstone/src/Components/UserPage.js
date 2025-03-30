@@ -43,7 +43,14 @@ const UserPage = () => {
     try {
       const response = await fetch(`/api/users/${currentUser.user_id}/rating`);
       const json = await response.json();
+      // Update the current user's rating.
       setCurrentUser((prev) => ({ ...prev, rating: json.rating }));
+      // Also update the users array so the dropdown reflects the new rating.
+      setUsers((prev) =>
+        prev.map((user) =>
+          user.user_id === currentUser.user_id ? { ...user, rating: json.rating } : user
+        )
+      );
     } catch (error) {
       console.error('Error fetching user rating:', error);
     }
