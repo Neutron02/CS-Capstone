@@ -1,5 +1,6 @@
 CREATE TABLE users (
   user_id INT PRIMARY KEY,
+  last_reset DATETIME DEFAULT NULL,
   rating DECIMAL(3, 2) DEFAULT 0.00
 );
 
