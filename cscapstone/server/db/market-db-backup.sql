@@ -55,6 +55,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` int NOT NULL,
   `rating` decimal(3,2) DEFAULT '0.00',
+  `last_reset` DATETIME DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -65,7 +66,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,5.00),(2,4.00),(3,3.00),(4,5.00),(5,4.00);
+INSERT INTO `users` VALUES (1,5.00,NULL),(2,4.00,NULL),(3,3.00,NULL),(4,5.00,NULL),(5,4.00,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
