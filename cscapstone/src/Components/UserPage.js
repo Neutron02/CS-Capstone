@@ -1,4 +1,3 @@
-//// filepath: /home/smscott/CS-Capstone/cscapstone/src/Components/UserPage.js
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
@@ -12,10 +11,11 @@ const UserPage = () => {
   const [users, setUsers] = useState([]);
   const [refreshCounter, setRefreshCounter] = useState(0);
   const [disableModifications, setDisableModifications] = useState(false);
-  // Toggle for simulation outcome: ON means offer clicks simulate success; OFF simulates failure.
   const [simulateOfferSuccess, setSimulateOfferSuccess] = useState(true);
+  // Advanced parameters state.
+  const [disputeResolution, setDisputeResolution] = useState(0.8);
+  const [confidenceAccuracy, setConfidenceAccuracy] = useState(0.75);
 
-  // Fetch users when userId changes.
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -31,7 +31,6 @@ const UserPage = () => {
     fetchUsers();
   }, [userId]);
 
-  // Update currentUser when users change.
   useEffect(() => {
     if (users.length > 0) {
       const user = users.find((user) => user.user_id === Number(userId)) || users[0];
@@ -41,11 +40,12 @@ const UserPage = () => {
 
   const updateUserRating = async () => {
     try {
-      const response = await fetch(`/api/users/${currentUser.user_id}/rating`);
+      // Pass slider values as query parameters.
+      const response = await fetch(
+        `/api/users/${currentUser.user_id}/rating?disputeResolution=${disputeResolution}&confidenceAccuracy=${confidenceAccuracy}`
+      );
       const json = await response.json();
-      // Update the current user's rating.
       setCurrentUser((prev) => ({ ...prev, rating: json.rating }));
-      // Also update the users array so the dropdown reflects the new rating.
       setUsers((prev) =>
         prev.map((user) =>
           user.user_id === currentUser.user_id ? { ...user, rating: json.rating } : user
@@ -65,7 +65,6 @@ const UserPage = () => {
     setDisableModifications((prev) => !prev);
   };
 
-  // Toggle simulation mode for offer clicks.
   const toggleSimulationOfferSuccess = () => {
     setSimulateOfferSuccess((prev) => !prev);
   };
@@ -108,7 +107,6 @@ const UserPage = () => {
     await updateUserRating();
   };
 
-  // When an offer is clicked, simulation mode determines outcome.
   const handleOffer = async (item) => {
     if (disableModifications) return;
     try {
@@ -125,8 +123,30 @@ const UserPage = () => {
       console.log(`Simulated ${eventType} event for offer on item`, item.item_id);
       setRefreshCounter((prev) => prev + 1);
       await updateUserRating();
+      setRefreshCounter((prev) => prev + 1);
     } catch (error) {
       console.error('Error processing offer:', error);
+    }
+  };
+
+  const handleReset = async (resetValue) => {
+    try {
+      const response = await fetch(`/api/users/${currentUser.user_id}/reset`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resetValue })
+      });
+      const json = await response.json();
+      // Update the state using the reset value instead of recalculating a new rating.
+      setCurrentUser((prev) => ({ ...prev, rating: parseInt(resetValue, 10) }));
+      setUsers((prev) =>
+        prev.map((user) =>
+          user.user_id === currentUser.user_id ? { ...user, rating: parseInt(resetValue, 10) } : user
+        )
+      );
+      setRefreshCounter((prev) => prev + 1);
+    } catch (error) {
+      console.error('Error resetting user:', error);
     }
   };
 
@@ -150,6 +170,13 @@ const UserPage = () => {
             currentUser={currentUser} 
             users={users} 
             onUserSelect={handleUserSelect} 
+            refreshCounter={refreshCounter}
+            // Pass advanced parameters and handlers.
+            disputeResolution={disputeResolution}
+            setDisputeResolution={setDisputeResolution}
+            confidenceAccuracy={confidenceAccuracy}
+            setConfidenceAccuracy={setConfidenceAccuracy}
+            onReset={handleReset}
           />
         </div>
         <div className="flex-1 ml-80">
